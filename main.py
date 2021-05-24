@@ -1,3 +1,4 @@
+from sqlalchemy_pagination import paginate
 from flask import Flask, render_template, request, redirect, url_for
 from sqla_wrapper import SQLAlchemy
 import os
@@ -16,9 +17,16 @@ class Message(db.Model):
 
 db.create_all()
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
-    messages = db.query(Message).all()
+    page = request.args.get("page")
+
+    if not page:
+        page = 1
+
+    messages_query = db.query(Message)
+
+    messages = paginate(query=messages_query, page=int(page), page_size=5)
 
     return render_template("index.html", messages=messages)
 
