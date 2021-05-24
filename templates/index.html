@@ -1,0 +1,39 @@
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <title>CatChat</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Fábio Lopes">
+        <meta name="description" content="Chat app">
+        <meta http-equiv="refresh" content="60">
+
+    </head>
+
+    <body>
+
+        <h1>CatChat</h1>
+
+        <form action="/add-message" method="post">
+            <input name="username" placeholder="Enter your name">
+            <br>
+            <br>
+
+            <textarea placeholder="Enter your message" name="text" rows="5"></textarea>
+            <br>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <h2>Messages:</h2>
+
+        {% for message in messages %}
+        <p>
+            <strong>{{ message.author }}:</strong>
+            {{message.text}}
+        </p>
+        {% endfor %}
+
+    </body>
+
+</html>
